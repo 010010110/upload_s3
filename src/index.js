@@ -8,17 +8,20 @@ const cors = require("cors");
 
 const app = express();
 
+
 /**
  * Database setup
  */
 mongoose.connect(
-  process.env.MONGO_URL,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-  
+    process.env.MONGO_URL, 
+  { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true, 
+  },
 );
+
+global.db = mongoose.connection;
+global.db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.use(cors());
 app.use(express.json());
